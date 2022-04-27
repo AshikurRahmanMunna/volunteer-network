@@ -1,0 +1,47 @@
+.auth {
+    min-height: 100vh;
+    padding: 40px 0;
+}
+.auth-center {
+    background: white;
+    border-radius: 20px;
+}
+.auth-center img {
+    width: 300px;
+}
+.register-form input:not([type=submit]) {
+    width: 462px;
+    display: block;
+    height: 40px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+    background: transparent;
+}
+.register-form input:focus {
+    border-bottom: 1px solid rgb(0, 255, 0);
+}
+.auth-submit-btn {
+    background: #3F90FC;
+    border: none;
+    width: 100%;
+    height: 48px;
+    color: white;
+}
+.password {
+    width: 462px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid black;
+}
+.password input {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    border-bottom: none !important;
+}

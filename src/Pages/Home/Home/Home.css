@@ -1,0 +1,32 @@
+.banner {
+    background: linear-gradient(rgba(250, 250, 250, 0.9), rgba(250, 250, 250, 0.9)), url(../../../images/banner-bg.png);
+    height: 80vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.input-with-btn input {
+    width: 350px;
+    height: 50px;
+    padding-left: 15px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border: none;
+}
+.input-with-btn input:focus {
+    outline: none;
+}
+.input-with-btn button {
+    width: 118px;
+    height: 50px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    outline: none;
+    border: none;
+    background: #3F90FC;
+    color: white;
+    transition: all .3s ease-in-out;
+}
+.input-with-btn button:hover {
+    background: #006eff;
+}

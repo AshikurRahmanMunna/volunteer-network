@@ -1,0 +1,16 @@
+.navbar-top {
+    transition: all .3s ease-in-out;
+    background: transparent;    
+}
+.navbar-top-bg-white {
+    transition: all .3s ease-in-out;
+    background: white;    
+}
+.nav-special {
+    border: none;
+    outline: none;
+    width: 150px;
+    margin-left: 20px;
+    border-radius: 6px;
+    color: white;
+}
