@@ -41,6 +41,7 @@ const Register = () => {
         date,
         description,
         work,
+        role: 'volunteer'
       });
     });
     await updateProfile({ displayName: name });

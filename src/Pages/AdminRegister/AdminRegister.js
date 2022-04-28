@@ -1,33 +1,52 @@
 import React, { useState } from "react";
 import logo from "../../logos/logo.png";
+import auth from "../../firebase.init";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import auth from "../../firebase.init";
+import { toast } from "react-toastify";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-const Login = () => {
+const AdminRegister = () => {
   const [showPassword, setShowPassword] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const from = location?.state?.from?.pathname || "/";
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
+  const [user, loading, error] = useAuthState(auth);
   let errorElement;
-  if (error) {
-    console.log(error.message);
-    errorElement = <p className="text-danger">{error.message}</p>;
-  }
-  const handleLogin = (event) => {
+  const handleAdminRegister = (event) => {
     event.preventDefault();
-    const email = event.target.email.value;
-    const password = event.target.password.value;
-    signInWithEmailAndPassword(email, password);
+    const secretCode = process.env.REACT_APP_ADMIN_SECRET;
+    console.log(secretCode);
+    const secretInput = event.target.secret.value;
+    if (secretCode === secretInput) {
+      axios.put(`http://localhost:5000/volunteer/${user.email}`);
+      toast.success("Admin Registration Successfull", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+    if (secretCode !== secretInput) {
+      errorElement = <p className="text-danger">Wrong Secret Code</p>;
+      toast.error("Wrong Password", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
   };
-  if (user) {
-    navigate(from, { replace: true });
-  }
 
   return (
     <div className="d-flex auth align-items-center justify-content-center">
@@ -40,15 +59,14 @@ const Login = () => {
           />
         </Link>
         <div className="auth-center p-5">
-          <h4 className="mb-3">Login</h4>
-          <form onSubmit={handleLogin} className="register-form">
-            <input type="email" name="email" placeholder="Email" required />
+          <h4 className="mb-3">Register as a Admin</h4>
+          <form onSubmit={handleAdminRegister} className="register-form">
             <div className="password">
               <input
                 type={showPassword ? "text" : "password"}
                 className="password-input"
-                name="password"
-                placeholder="Password"
+                name="secret"
+                placeholder="Admin Password"
                 required
               />
               <span onClick={() => setShowPassword(!showPassword)}>
@@ -60,16 +78,10 @@ const Login = () => {
             <input
               className="auth-submit-btn"
               type="submit"
-              value="Login"
+              value="Register"
               required
             />
           </form>
-          <p>
-            Dont't Have an account?{" "}
-            <Link to="/register" className="text-danger">
-              Register
-            </Link>
-          </p>
           {errorElement}
         </div>
       </div>
@@ -77,4 +89,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminRegister;

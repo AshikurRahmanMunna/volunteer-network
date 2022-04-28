@@ -9,7 +9,7 @@ import "./Header.css";
 
 const Header = () => {
   const [user, loading, error] = useAuthState(auth);
-  console.log(user)
+  console.log(user);
   const [white, setWhite] = useState(false);
   const navigate = useNavigate();
   const handleNavbarColor = () => {
@@ -21,8 +21,13 @@ const Header = () => {
   };
   const [hideNavbar, setHideNavbar] = useState(false);
   const location = useLocation();
+  const pathName = location?.pathname;
   useEffect(() => {
-    if (location.pathname === "/register") {
+    if (
+      pathName === "/register" ||
+      pathName === "/login" ||
+      pathName === "/services/add"
+    ) {
       setHideNavbar(true);
     } else {
       setHideNavbar(false);
@@ -59,15 +64,24 @@ const Header = () => {
               </Nav.Link>
               {user ? (
                 <>
-                  <NavDropdown title={user?.displayName} id="basic-nav-dropdown">
+                  <NavDropdown
+                    title={user?.displayName}
+                    id="basic-nav-dropdown"
+                  >
                     <NavDropdown.Item as={Link} to="/register/admin">
                       Register as admin
                     </NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/profile">
                       Your Profile
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">
-                      Something
+                    <NavDropdown.Item as={Link} to="/services/add">
+                      Add Service
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/services">
+                      Your Services
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/register/admin">
+                      Register as a admin
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={() => signOut(auth)}>
